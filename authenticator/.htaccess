@@ -1,0 +1,15 @@
+
+RewriteRule "^(.*/)?\\.git/" - [F,L]
+RewriteRule "^(.*/)?\\.users.yml" - [F,L]
+RewriteRule "^(.*/)?\\.py$" - [F,L]
+
+<IfModule headers_module>
+    Header set X-Clacks-Overhead "GNU Terry Pratchett"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /authenticator/
+    RewriteRule ^index\.cgi$ - [L]
+    RewriteRule . /index.cgi [L]
+</IfModule>

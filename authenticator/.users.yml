@@ -1,0 +1,33 @@
+---
+# Authenticator user file
+
+# Each user is added using a
+#     `username`
+#     `password`
+#     `timeslot`
+#     `dateslot`
+#
+# If no dateslot or timeslot is given, both default to `always`
+#
+# For times and dates : Use `|` (pipe) as separator
+
+users:
+  administrator:
+    password: "some_pass"
+    timeslot: "always"
+    dateslot: "always"
+
+  user1:
+    password: "pass1"
+    timeslot: "18:39|18:40"
+    dateslot: "15-11-2017|2-1-2018"
+
+  user2:
+    password: "pass2"
+    timeslot: "always"
+    dateslot: "2-2-2018|3-2-2018"
+
+  user3:
+    password: "pass3"
+    timeslot: "00:00|17:00"
+    dateslot: "2-2-2018|2-2-2018"
