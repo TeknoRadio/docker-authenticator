@@ -17,3 +17,4 @@ COPY config/entrypoint.sh /entrypoint.sh
 RUN chmod 750 /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
