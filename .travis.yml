@@ -10,10 +10,13 @@ before_install:
   - docker pull quay.io/teknoradio.org/authenticator
   - docker ps -a
 
+install:
+  - pip install -q testinfra requests --use-wheel
+
 script:
   - docker build --cache-from quay.io/teknoradio.org/authenticator -t teknoradio/authenticator .
+  - docker run --entrypoint=""  --rm --name base teknoradio/authenticator /bin/bash -c "which python3" | grep -q python3
+  - py.test -v
 
 notifications:
   email : false
-
-

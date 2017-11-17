@@ -2,18 +2,14 @@
 from __future__ import print_function
 
 import cgi
-import cgitb
 import datetime
-
 import yaml
 import json
-
-cgitb.enable()
 
 
 class Users(dict):
 
-    def __init__(self, filename='.users.yml'):
+    def __init__(self, filename):
         super(Users, self).__init__(self.read(filename))
 
     def read(self, filename):
@@ -59,7 +55,7 @@ class Users(dict):
 form = cgi.FieldStorage()
 username = form.getvalue('username')
 password = form.getvalue('password')
-users = Users()
+users = Users(filename=".users.yml")
 
 print('Content-Type: application/json\r\n\r')
 print(json.dumps(dict(success=users.validate_user(username, password))))

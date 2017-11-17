@@ -98,3 +98,4 @@ ENV/
 
 build.sh
 start.sh
+authenticator/.users.yml
