@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from __future__ import print_function
-
 import cgi
 import datetime
 import yaml
@@ -8,7 +7,6 @@ import json
 
 
 class Users(dict):
-
     def __init__(self, filename):
         super(Users, self).__init__(self.read(filename))
 
@@ -17,8 +15,8 @@ class Users(dict):
             return yaml.safe_load(fh.read())['users']
 
     def get_attr(self, username, attr):
-        if username not in self:
-            return ""
+        if username not in self or attr not in self[username]:
+            return
         return self[username][attr]
 
     def password(self, username):
@@ -48,14 +46,18 @@ class Users(dict):
         return self.strftime(self.dateslot(username), self.timeslot(username), 1)
 
     def validate_user(self, username, password):
-        return self.password(username) == password and \
-               self.start_time(username) <= datetime.datetime.now() <= self.stop_time(username)
+        try:
+            return self.password(username) == password and \
+                   self.start_time(username) <= datetime.datetime.now() <= self.stop_time(username)
+        except:
+            return False
 
 
-form = cgi.FieldStorage()
-username = form.getvalue('username')
-password = form.getvalue('password')
-users = Users(filename=".users.yml")
+if __name__ == "__main__":
+    form = cgi.FieldStorage()
+    username = form.getvalue('username')
+    password = form.getvalue('password')
+    user_dict = Users(filename=".users.yml")
 
-print('Content-Type: application/json\r\n\r')
-print(json.dumps(dict(success=users.validate_user(username, password))))
+    print('Content-Type: application/json\r\n\r')
+    print(json.dumps(dict(success=user_dict.validate_user(username, password))))
